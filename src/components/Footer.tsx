@@ -3,9 +3,9 @@ import { Separator } from "@/components/ui/separator";
 
 const Footer = () => {
   return (
-    <footer className="bg-background border-t border-border/50 mt-20">
-      <div className="container max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-background border-t border-border/50 mt-12 sm:mt-20">
+      <div className="container max-w-7xl mx-auto px-4 py-8 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="font-semibold text-lg text-foreground">SkillLoop</div>
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -46,11 +46,11 @@ const Footer = () => {
         
         <Separator className="my-8" />
         
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <p className="text-xs text-muted-foreground">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+          <p className="text-xs text-center sm:text-left text-muted-foreground">
             © 2025 SkillLoop. All rights reserved.
           </p>
-          <div className="flex items-center space-x-4 mt-4 md:mt-0">
+          <div className="flex items-center space-x-2 sm:space-x-4 mt-0">
             <Button variant="ghost" size="sm" className="text-xs">
               Privacy
             </Button>

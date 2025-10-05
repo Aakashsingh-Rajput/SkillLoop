@@ -26,18 +26,18 @@ const Landing = () => {
 
       {/* Hero Section */}
       <main className="flex-1">
-        <div className="container max-w-7xl mx-auto px-4 py-20">
+        <div className="container max-w-7xl mx-auto px-4 py-10 sm:py-16 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
+              <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">
-                <Badge variant="secondary" className="w-fit">
+                <Badge variant="secondary" className="w-fit text-xs sm:text-sm">
                   Join 10,000+ Learners Worldwide
                 </Badge>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight">
                   Transform Skills Into
                   <span className="bg-gradient-primary bg-clip-text text-transparent"> Success</span>
                 </h1>
-                <p className="text-xl text-muted-foreground max-w-lg leading-relaxed">
+                <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-lg leading-relaxed">
                   Connect with peers, exchange expertise, and accelerate your growth through our intelligent skill-matching platform. Learn faster, teach better, grow together.
                 </p>
               </div>
@@ -60,7 +60,7 @@ const Landing = () => {
                 </Button>
               </div>
               
-              <div className="flex items-center space-x-8 pt-4">
+              <div className="grid grid-cols-3 gap-4 sm:flex sm:items-center sm:space-x-8 pt-4">
                 <div className="text-center">
                   <div className="text-2xl font-semibold text-foreground">50K+</div>
                   <div className="text-sm text-muted-foreground">Skills Exchanged</div>
