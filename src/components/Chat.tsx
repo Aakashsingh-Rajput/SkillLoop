@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { 
@@ -188,11 +188,11 @@ const Chat = () => {
   };
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-200px)]">
+    <div className="container max-w-7xl mx-auto px-4 py-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-220px)] min-h-[600px]">
         {/* Conversations List */}
-        <Card className="lg:col-span-1 flex flex-col">
-          <CardHeader className="pb-4">
+        <Card className="lg:col-span-1 flex flex-col h-full">
+          <CardHeader className="pb-4 flex-shrink-0">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Messages</CardTitle>
               <Button variant="ghost" size="sm">
@@ -209,7 +209,7 @@ const Chat = () => {
               />
             </div>
           </CardHeader>
-          <CardContent className="p-0 flex-1">
+          <CardContent className="p-0 flex-1 overflow-hidden">
             <ScrollArea className="h-full">
               <div className="space-y-1 p-4">
                 {filteredConversations.map((conversation) => (
@@ -265,11 +265,11 @@ const Chat = () => {
         </Card>
 
         {/* Chat Area */}
-        <Card className="lg:col-span-2 flex flex-col">
+        <Card className="lg:col-span-2 flex flex-col h-full">
           {selectedConversation && (
             <>
               {/* Chat Header */}
-              <CardHeader className="pb-4 border-b">
+              <CardHeader className="pb-4 border-b flex-shrink-0">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="relative">
@@ -331,7 +331,7 @@ const Chat = () => {
               </CardHeader>
 
               {/* Messages */}
-              <CardContent className="flex-1 p-4 overflow-hidden">
+              <CardContent className="flex-1 p-4 overflow-hidden min-h-0">
                 <ScrollArea className="h-full">
                   <div className="space-y-4 pb-4">
                     {messages.map((message, index) => (
@@ -387,7 +387,7 @@ const Chat = () => {
               </CardContent>
 
               {/* Message Input */}
-              <div className="p-4 border-t">
+              <div className="p-4 border-t flex-shrink-0 bg-card">
                 <div className="flex items-end gap-2">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -445,6 +445,9 @@ const Chat = () => {
         <DialogContent className="sm:max-w-4xl">
           <DialogHeader>
             <DialogTitle>Video Call with {selectedConversation?.name}</DialogTitle>
+            <DialogDescription>
+              Calling {selectedConversation?.name}. You can adjust mic and camera anytime during the call.
+            </DialogDescription>
           </DialogHeader>
           <div className="aspect-video bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg flex items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 bg-black/20"></div>
