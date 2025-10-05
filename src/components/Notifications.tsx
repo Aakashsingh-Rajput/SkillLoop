@@ -5,38 +5,40 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Notifications = () => {
   return (
-    <div className="container max-w-4xl mx-auto px-4 py-8">
-      <div className="space-y-8">
+    <div className="container max-w-4xl mx-auto px-4 py-4 sm:py-8">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold text-foreground">Notifications</h1>
+          <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">Notifications</h1>
           <p className="text-muted-foreground">Stay updated with your SkillLoop activity</p>
         </div>
 
         <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="matches">Matches</TabsTrigger>
-            <TabsTrigger value="sessions">Sessions</TabsTrigger>
-            <TabsTrigger value="credits">Credits</TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+              <TabsTrigger value="all" className="text-xs sm:text-sm">All</TabsTrigger>
+              <TabsTrigger value="matches" className="text-xs sm:text-sm">Matches</TabsTrigger>
+              <TabsTrigger value="sessions" className="text-xs sm:text-sm">Sessions</TabsTrigger>
+              <TabsTrigger value="credits" className="text-xs sm:text-sm">Credits</TabsTrigger>
+            </TabsList>
+          </div>
           
           <TabsContent value="all" className="space-y-6">
             <div className="space-y-4">
               <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
+                <CardContent className="p-3 sm:p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
                     <div className="space-y-1">
                       <div className="flex items-center space-x-2">
                         <Badge variant="secondary">New Match</Badge>
                         <span className="text-sm text-muted-foreground">2 hours ago</span>
                       </div>
-                      <h4 className="font-medium text-foreground">New skill match with Sarah Chen</h4>
-                      <p className="text-sm text-muted-foreground">
+                      <h4 className="font-medium text-sm sm:text-base text-foreground">New skill match with Sarah Chen</h4>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         Sarah wants to learn React and you teach React! Perfect match for skill exchange.
                       </p>
                     </div>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="w-full sm:w-auto">
                       View Match
                     </Button>
                   </div>

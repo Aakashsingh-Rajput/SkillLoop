@@ -11,12 +11,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Profile = () => {
   return (
-    <div className="container max-w-6xl mx-auto px-4 py-8">
-      <div className="space-y-8">
+    <div className="container max-w-6xl mx-auto px-4 py-4 sm:py-8">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
           <div className="space-y-2">
-            <h1 className="text-3xl font-semibold text-foreground">Profile Settings</h1>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">Profile Settings</h1>
             <p className="text-muted-foreground">Manage your profile, skills, and preferences</p>
           </div>
           <div className="flex items-center space-x-4">
@@ -28,12 +28,14 @@ const Profile = () => {
         </div>
 
         <Tabs defaultValue="profile" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="skills">Skills</TabsTrigger>
-            <TabsTrigger value="availability">Availability</TabsTrigger>
-            <TabsTrigger value="preferences">Preferences</TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 min-w-full">
+              <TabsTrigger value="profile" className="text-xs sm:text-sm">Profile</TabsTrigger>
+              <TabsTrigger value="skills" className="text-xs sm:text-sm">Skills</TabsTrigger>
+              <TabsTrigger value="availability" className="text-xs sm:text-sm">Availability</TabsTrigger>
+              <TabsTrigger value="preferences" className="text-xs sm:text-sm">Preferences</TabsTrigger>
+            </TabsList>
+          </div>
           
           <TabsContent value="profile" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

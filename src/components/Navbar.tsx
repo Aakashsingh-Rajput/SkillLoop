@@ -26,16 +26,20 @@ import {
   User,
   Settings,
   LogOut,
-  Dot
+  Dot,
+  Menu,
+  X
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isVideoCallOpen, setIsVideoCallOpen] = useState(false);
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const isActive = (path: string) => location.pathname === path || 
     (path === '/dashboard' && location.pathname === '/');
@@ -79,9 +83,75 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Section */}
-        <div className="flex items-center space-x-4">
-          {/* Main Navigation */}
-          <nav className="hidden md:flex space-x-6">
+        <div className="flex items-center space-x-2 md:space-x-4">
+          {/* Mobile Menu */}
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[280px]">
+              <SheetHeader>
+                <SheetTitle>Navigation</SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col space-y-2 mt-6">
+                <Button
+                  variant={isActive('/dashboard') ? 'secondary' : 'ghost'}
+                  onClick={() => {
+                    navigate('/dashboard');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="justify-start"
+                >
+                  Dashboard
+                </Button>
+                <Button
+                  variant={isActive('/matches') ? 'secondary' : 'ghost'}
+                  onClick={() => {
+                    navigate('/matches');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="justify-start"
+                >
+                  Matches
+                </Button>
+                <Button
+                  variant={isActive('/sessions') ? 'secondary' : 'ghost'}
+                  onClick={() => {
+                    navigate('/sessions');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="justify-start"
+                >
+                  Sessions
+                </Button>
+                <Button
+                  variant={isActive('/community') ? 'secondary' : 'ghost'}
+                  onClick={() => {
+                    navigate('/community');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="justify-start"
+                >
+                  Community
+                </Button>
+                <Button
+                  variant={isActive('/profile') ? 'secondary' : 'ghost'}
+                  onClick={() => {
+                    navigate('/profile');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="justify-start"
+                >
+                  Profile
+                </Button>
+              </nav>
+            </SheetContent>
+          </Sheet>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-2 lg:space-x-6">
             <button 
               onClick={() => navigate('/dashboard')}
               className={`text-sm font-medium transition-colors px-3 py-2 rounded-lg ${
