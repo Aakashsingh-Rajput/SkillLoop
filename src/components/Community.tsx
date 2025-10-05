@@ -77,10 +77,10 @@ const Community = () => {
   const [newPost, setNewPost] = useState({ title: "", content: "", category: "" });
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-8 space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="container max-w-7xl mx-auto px-4 py-4 sm:py-8 space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-2">
-          <h1 className="text-2xl font-semibold">Community</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold">Community</h1>
           <p className="text-muted-foreground">Connect, discuss, and learn together</p>
         </div>
         <Dialog>
@@ -136,11 +136,13 @@ const Community = () => {
       </div>
 
       <Tabs defaultValue="discussions" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 max-w-md">
-          <TabsTrigger value="discussions">Discussions</TabsTrigger>
-          <TabsTrigger value="groups">Study Groups</TabsTrigger>
-          <TabsTrigger value="events">Events</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto">
+          <TabsList className="grid w-full grid-cols-3 max-w-full sm:max-w-md">
+            <TabsTrigger value="discussions" className="text-xs sm:text-sm">Discussions</TabsTrigger>
+            <TabsTrigger value="groups" className="text-xs sm:text-sm">Study Groups</TabsTrigger>
+            <TabsTrigger value="events" className="text-xs sm:text-sm">Events</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="discussions" className="space-y-4">
           <div className="flex items-center gap-4 mb-6">

@@ -37,15 +37,15 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-8">
-      <div className="space-y-8">
+    <div className="container max-w-7xl mx-auto px-4 py-4 sm:py-8">
+      <div className="space-y-6 sm:space-y-8">
         {/* Welcome Section */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
           <div className="space-y-2">
-            <h1 className="text-3xl font-semibold text-foreground">Welcome back, Aakash!</h1>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">Welcome back, Aakash!</h1>
             <p className="text-muted-foreground">You're on track to achieve your learning goals. Keep going!</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <Button 
               variant="indigo" 
               onClick={() => navigate("/matches")}
@@ -231,11 +231,13 @@ const Dashboard = () => {
 
         {/* Enhanced Skills Overview */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="teaching">Teaching</TabsTrigger>
-            <TabsTrigger value="learning">Learning</TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="overview" className="text-xs sm:text-sm">Overview</TabsTrigger>
+              <TabsTrigger value="teaching" className="text-xs sm:text-sm">Teaching</TabsTrigger>
+              <TabsTrigger value="learning" className="text-xs sm:text-sm">Learning</TabsTrigger>
+            </TabsList>
+          </div>
           
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
