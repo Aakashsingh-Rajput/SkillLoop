@@ -22,10 +22,10 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-subtle flex items-center justify-center px-4 py-8">
       <Card className="w-full max-w-md shadow-card">
         <CardHeader className="space-y-1 pb-4">
-          <CardTitle className="text-2xl font-semibold text-center">
+          <CardTitle className="text-xl sm:text-2xl font-semibold text-center">
             {isSignUp ? "Create your account" : "Welcome back"}
           </CardTitle>
           <CardDescription className="text-center">

@@ -24,7 +24,8 @@ import {
   FileText,
   Check,
   CheckCheck,
-  Clock
+  Clock,
+  X
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -188,10 +189,10 @@ const Chat = () => {
   };
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-6 mb-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-220px)] min-h-[600px]">
+    <div className="container max-w-7xl mx-auto px-2 sm:px-4 py-4 sm:py-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 h-[calc(100vh-180px)] sm:h-[calc(100vh-220px)] min-h-[500px] sm:min-h-[600px]">
         {/* Conversations List */}
-        <Card className="lg:col-span-1 flex flex-col h-full">
+        <Card className={`lg:col-span-1 flex flex-col h-full ${selectedConversation ? 'hidden lg:flex' : 'flex'}`}>
           <CardHeader className="pb-4 flex-shrink-0">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Messages</CardTitle>
@@ -265,15 +266,24 @@ const Chat = () => {
         </Card>
 
         {/* Chat Area */}
-        <Card className="lg:col-span-2 flex flex-col h-full">
-          {selectedConversation && (
+        <Card className={`lg:col-span-2 flex flex-col h-full ${!selectedConversation ? 'hidden lg:flex' : 'flex'}`}>
+          {selectedConversation ? (
             <>
               {/* Chat Header */}
-              <CardHeader className="pb-4 border-b flex-shrink-0">
+              <CardHeader className="pb-3 sm:pb-4 border-b flex-shrink-0">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    {/* Back button for mobile */}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="lg:hidden h-8 w-8"
+                      onClick={() => setSelectedConversation(null)}
+                    >
+                      <X className="h-5 w-5" />
+                    </Button>
                     <div className="relative">
-                      <Avatar className="w-10 h-10">
+                      <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
                         <AvatarFallback className="bg-gradient-primary text-primary-foreground">
                           {selectedConversation.avatar}
                         </AvatarFallback>
@@ -283,8 +293,8 @@ const Chat = () => {
                       )}
                     </div>
                     <div>
-                      <p className="font-medium">{selectedConversation.name}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-sm sm:text-base font-medium">{selectedConversation.name}</p>
+                      <p className="text-xs text-muted-foreground hidden sm:block">
                         {selectedConversation.online ? (
                           <span className="text-green-600">Online</span>
                         ) : (
@@ -293,20 +303,21 @@ const Chat = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center space-x-1 sm:space-x-2">
                     <Button 
                       variant="ghost" 
-                      size="sm"
+                      size="icon"
+                      className="h-8 w-8 sm:h-9 sm:w-9"
                       onClick={handleStartVideoCall}
                     >
                       <Video className="w-4 h-4" />
                     </Button>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9 hidden sm:flex">
                       <Phone className="w-4 h-4" />
                     </Button>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9">
                           <MoreVertical className="w-4 h-4" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -331,7 +342,7 @@ const Chat = () => {
               </CardHeader>
 
               {/* Messages */}
-              <CardContent className="flex-1 p-4 overflow-hidden min-h-0">
+              <CardContent className="flex-1 p-2 sm:p-4 overflow-hidden min-h-0">
                 <ScrollArea className="h-full">
                   <div className="space-y-4 pb-4">
                     {messages.map((message, index) => (
@@ -387,11 +398,11 @@ const Chat = () => {
               </CardContent>
 
               {/* Message Input */}
-              <div className="p-4 border-t flex-shrink-0 bg-card">
-                <div className="flex items-end gap-2">
+              <div className="p-2 sm:p-4 border-t flex-shrink-0 bg-card">
+                <div className="flex items-end space-x-1 sm:space-x-2">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="icon" className="h-9 w-9 hidden sm:flex">
                         <Paperclip className="w-4 h-4" />
                       </Button>
                     </DropdownMenuTrigger>
@@ -413,12 +424,12 @@ const Chat = () => {
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSendMessage()}
-                      className="pr-10 resize-none min-h-[40px]"
+                      className="pr-10 resize-none min-h-[40px] text-sm sm:text-base"
                     />
                     <Button 
                       variant="ghost" 
-                      size="sm" 
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                      size="icon" 
+                      className="absolute right-1 sm:right-2 top-1/2 transform -translate-y-1/2 h-7 w-7 hidden sm:flex"
                     >
                       <Smile className="w-4 h-4" />
                     </Button>
@@ -426,16 +437,22 @@ const Chat = () => {
                   
                   <Button 
                     variant="indigo" 
-                    size="sm"
+                    size="icon"
                     onClick={handleSendMessage}
                     disabled={!newMessage.trim()}
-                    className="shrink-0"
+                    className="h-10 w-10 shrink-0"
                   >
                     <Send className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
             </>
+          ) : (
+            <CardContent className="flex items-center justify-center h-full">
+              <div className="text-center space-y-2">
+                <p className="text-muted-foreground">Select a conversation to start messaging</p>
+              </div>
+            </CardContent>
           )}
         </Card>
       </div>
