@@ -24,10 +24,10 @@ const Dashboard = () => {
   ];
 
   const skillProgressData = [
-    { skill: 'React', progress: 75, target: 90 },
-    { skill: 'Python', progress: 45, target: 80 },
-    { skill: 'Design', progress: 60, target: 70 },
-    { skill: 'Communication', progress: 80, target: 85 }
+    { skill: 'React', level: 'Advanced', sessionsCompleted: 15, totalSessions: 20, hoursSpent: 45 },
+    { skill: 'Python', level: 'Intermediate', sessionsCompleted: 8, totalSessions: 15, hoursSpent: 24 },
+    { skill: 'Design', level: 'Intermediate', sessionsCompleted: 12, totalSessions: 18, hoursSpent: 36 },
+    { skill: 'Communication', level: 'Advanced', sessionsCompleted: 16, totalSessions: 18, hoursSpent: 32 }
   ];
 
   const creditsData = [
@@ -185,30 +185,46 @@ const Dashboard = () => {
               <Target className="w-5 h-5" />
               Skill Development Progress
             </CardTitle>
-            <CardDescription>Track your learning goals and achievements</CardDescription>
+            <CardDescription>Track your learning journey with sessions and experience levels</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              {skillProgressData.map((skill) => (
-                <div key={skill.skill} className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-foreground">{skill.skill}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-muted-foreground">{skill.progress}%</span>
-                      <Badge variant={skill.progress >= skill.target ? "default" : "secondary"} className="text-xs">
-                        Target: {skill.target}%
-                      </Badge>
+              {skillProgressData.map((skill) => {
+                const progressPercentage = (skill.sessionsCompleted / skill.totalSessions) * 100;
+                const getLevelColor = (level: string) => {
+                  switch (level.toLowerCase()) {
+                    case 'beginner': return 'bg-yellow-500';
+                    case 'intermediate': return 'bg-blue-500';
+                    case 'advanced': return 'bg-green-500';
+                    case 'expert': return 'bg-purple-500';
+                    default: return 'bg-gray-500';
+                  }
+                };
+                
+                return (
+                  <div key={skill.skill} className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-foreground">{skill.skill}</span>
+                      <div className="flex items-center gap-3">
+                        <Badge variant="secondary" className="text-xs">
+                          <div className={`w-2 h-2 rounded-full ${getLevelColor(skill.level)} mr-1`}></div>
+                          {skill.level}
+                        </Badge>
+                        <span className="text-sm text-muted-foreground">
+                          {skill.sessionsCompleted}/{skill.totalSessions} sessions
+                        </span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Progress value={progressPercentage} className="h-2" />
+                      <div className="flex justify-between text-xs text-muted-foreground">
+                        <span>{skill.hoursSpent} hours practiced</span>
+                        <span>{Math.round(progressPercentage)}% sessions completed</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="relative">
-                    <Progress value={skill.progress} className="h-2" />
-                    <div 
-                      className="absolute top-0 h-2 w-0.5 bg-destructive rounded" 
-                      style={{ left: `${skill.target}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>
