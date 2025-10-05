@@ -65,10 +65,10 @@ const Sessions = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-8 space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="container max-w-7xl mx-auto px-4 py-4 sm:py-8 space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-2">
-          <h1 className="text-2xl font-semibold">Your Sessions</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold">Your Sessions</h1>
           <p className="text-muted-foreground">Manage your upcoming and past learning sessions</p>
         </div>
         <div className="flex gap-2">
@@ -146,12 +146,14 @@ const Sessions = () => {
         </div>
       </div>
 
-      <Tabs defaultValue="upcoming" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 max-w-lg">
-          <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-          <TabsTrigger value="past">Past Sessions</TabsTrigger>
-          <TabsTrigger value="calendar">Calendar View</TabsTrigger>
-        </TabsList>
+        <Tabs defaultValue="upcoming" className="space-y-6">
+        <div className="overflow-x-auto">
+          <TabsList className="grid w-full grid-cols-3 max-w-full sm:max-w-lg">
+            <TabsTrigger value="upcoming" className="text-xs sm:text-sm">Upcoming</TabsTrigger>
+            <TabsTrigger value="past" className="text-xs sm:text-sm">Past Sessions</TabsTrigger>
+            <TabsTrigger value="calendar" className="text-xs sm:text-sm">Calendar View</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="upcoming" className="space-y-4">
           {upcomingSessions.map((session) => (

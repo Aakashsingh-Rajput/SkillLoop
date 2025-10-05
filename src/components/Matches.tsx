@@ -53,10 +53,10 @@ const Matches = () => {
   });
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-8 space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="container max-w-7xl mx-auto px-4 py-4 sm:py-8 space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-2">
-          <h1 className="text-2xl font-semibold">Your Matches</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold">Your Matches</h1>
           <p className="text-muted-foreground">Connect with peers who complement your skills</p>
         </div>
         <Button variant="indigo">
