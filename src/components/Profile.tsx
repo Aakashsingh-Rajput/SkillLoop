@@ -8,8 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getCurrentUser } from "@/data/mockData";
 
 const Profile = () => {
+  const currentUser = getCurrentUser();
+  const initials = currentUser.name.split(' ').map(n => n[0]).join('');
+  
   return (
     <div className="container max-w-6xl mx-auto px-4 py-4 sm:py-8">
       <div className="space-y-6 sm:space-y-8">
@@ -22,7 +26,7 @@ const Profile = () => {
           <div className="flex items-center space-x-4">
             <Avatar className="h-16 w-16">
               <AvatarImage src="/placeholder.svg" />
-              <AvatarFallback className="text-lg">JD</AvatarFallback>
+              <AvatarFallback className="text-lg">{initials}</AvatarFallback>
             </Avatar>
           </div>
         </div>
@@ -50,20 +54,20 @@ const Profile = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="firstName">First Name</Label>
-                        <Input id="firstName" defaultValue="John" />
+                        <Input id="firstName" defaultValue={currentUser.name.split(' ')[0]} />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName">Last Name</Label>
-                        <Input id="lastName" defaultValue="Doe" />
+                        <Input id="lastName" defaultValue={currentUser.name.split(' ')[1] || ''} />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" defaultValue="john@example.com" />
+                      <Input id="email" type="email" defaultValue={currentUser.email} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="location">Location</Label>
-                      <Input id="location" defaultValue="San Francisco, CA" />
+                      <Input id="location" defaultValue={currentUser.location} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="timezone">Timezone</Label>
@@ -84,7 +88,7 @@ const Profile = () => {
                       <Textarea 
                         id="bio" 
                         placeholder="Tell others about yourself..."
-                        defaultValue="Full-stack developer passionate about React and modern web technologies. Love teaching and learning from others!"
+                        defaultValue={currentUser.bio}
                         className="min-h-24"
                       />
                     </div>
@@ -101,7 +105,7 @@ const Profile = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="text-center space-y-2">
-                      <div className="text-3xl font-semibold text-indigo">150</div>
+                      <div className="text-3xl font-semibold text-indigo">{currentUser.credits}</div>
                       <p className="text-sm text-muted-foreground">Available Credits</p>
                       <Button variant="outline" size="sm" className="w-full">
                         View History
@@ -116,20 +120,20 @@ const Profile = () => {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Sessions Taught</span>
-                      <span className="font-medium">12</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Sessions Attended</span>
-                      <span className="font-medium">11</span>
+                      <span className="text-sm text-muted-foreground">Total Sessions</span>
+                      <span className="font-medium">{currentUser.totalSessions}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-sm text-muted-foreground">Average Rating</span>
-                      <span className="font-medium">4.9 ★</span>
+                      <span className="font-medium">{currentUser.rating} ★</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Total Hours</span>
-                      <span className="font-medium">18.5</span>
+                      <span className="text-sm text-muted-foreground">Location</span>
+                      <span className="font-medium text-xs">{currentUser.location}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Member Since</span>
+                      <span className="font-medium text-xs">{new Date(currentUser.joinedDate).toLocaleDateString()}</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -164,12 +168,9 @@ const Profile = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary">React</Badge>
-                    <Badge variant="secondary">TypeScript</Badge>
-                    <Badge variant="secondary">UI/UX Design</Badge>
-                    <Badge variant="secondary">Node.js</Badge>
-                    <Badge variant="secondary">JavaScript</Badge>
-                    <Badge variant="secondary">CSS</Badge>
+                    {currentUser.skillsTeaching.map(skill => (
+                      <Badge key={skill.name} variant="secondary">{skill.name}</Badge>
+                    ))}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="new-teach-skill">Add New Skill</Label>
@@ -202,11 +203,9 @@ const Profile = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">Python</Badge>
-                    <Badge variant="outline">Data Science</Badge>
-                    <Badge variant="outline">Machine Learning</Badge>
-                    <Badge variant="outline">Photography</Badge>
-                    <Badge variant="outline">DevOps</Badge>
+                    {currentUser.skillsLearning.map(skill => (
+                      <Badge key={skill.name} variant="outline">{skill.name}</Badge>
+                    ))}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="new-learn-skill">Add New Skill</Label>

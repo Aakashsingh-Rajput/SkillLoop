@@ -9,14 +9,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { MessageCircle, Users, BookOpen, Video, Plus } from "lucide-react";
+import { mockUsers } from "@/data/mockData";
 
 const discussions = [
   {
     id: 1,
     title: "Best practices for React Hooks",
-    author: "Sarah Chen",
-    avatar: "SC",
-    category: "React",
+    author: mockUsers[0].name,
+    avatar: mockUsers[0].name.split(' ').map(n => n[0]).join(''),
+    category: mockUsers[0].skillsTeaching[0].category,
     replies: 23,
     lastActivity: "2 hours ago",
     isHot: true,
@@ -25,8 +26,8 @@ const discussions = [
   {
     id: 2,
     title: "Career transition from Frontend to Full-Stack",
-    author: "Mike Johnson",
-    avatar: "MJ", 
+    author: mockUsers[2].name,
+    avatar: mockUsers[2].name.split(' ').map(n => n[0]).join(''),
     category: "Career",
     replies: 15,
     lastActivity: "4 hours ago",
@@ -36,9 +37,9 @@ const discussions = [
   {
     id: 3,
     title: "Python vs JavaScript for beginners",
-    author: "Emma Davis",
-    avatar: "ED",
-    category: "Programming",
+    author: mockUsers[3].name,
+    avatar: mockUsers[3].name.split(' ').map(n => n[0]).join(''),
+    category: mockUsers[3].skillsTeaching[0].category,
     replies: 31,
     lastActivity: "1 day ago",
     isHot: true,

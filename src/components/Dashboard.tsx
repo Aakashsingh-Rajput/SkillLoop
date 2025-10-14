@@ -7,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from "recharts";
 import { TrendingUp, Users, Clock, Star, Award, Target } from "lucide-react";
 import { useState } from "react";
+import { getCurrentUser, generateMatches } from "@/data/mockData";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
+  const currentUser = getCurrentUser();
+  const matches = generateMatches(currentUser);
 
   // Sample data for charts
   const weeklyActivityData = [
@@ -42,7 +45,7 @@ const Dashboard = () => {
         {/* Welcome Section */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
           <div className="space-y-2">
-            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">Welcome back, Aakash!</h1>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">Welcome back, {currentUser.name.split(' ')[0]}!</h1>
             <p className="text-muted-foreground">You're on track to achieve your learning goals. Keep going!</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
@@ -69,7 +72,7 @@ const Dashboard = () => {
                 <CardDescription className="text-primary-foreground/80">Credits Balance</CardDescription>
                 <Award className="w-5 h-5 text-primary-foreground/80" />
               </div>
-              <CardTitle className="text-3xl font-bold">150</CardTitle>
+              <CardTitle className="text-3xl font-bold">{currentUser.credits}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center text-sm text-primary-foreground/80">
@@ -85,7 +88,7 @@ const Dashboard = () => {
                 <CardDescription>Active Matches</CardDescription>
                 <Users className="w-5 h-5 text-muted-foreground" />
               </div>
-              <CardTitle className="text-3xl font-bold text-foreground">8</CardTitle>
+              <CardTitle className="text-3xl font-bold text-foreground">{matches.length}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center text-sm text-success">
@@ -114,10 +117,10 @@ const Dashboard = () => {
                 <CardDescription>Average Rating</CardDescription>
                 <Star className="w-5 h-5 text-yellow-500" />
               </div>
-              <CardTitle className="text-3xl font-bold text-foreground">4.8</CardTitle>
+              <CardTitle className="text-3xl font-bold text-foreground">{currentUser.rating}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">From 23 reviews</p>
+              <p className="text-sm text-muted-foreground">From {currentUser.totalSessions} sessions</p>
             </CardContent>
           </Card>
         </div>
@@ -315,11 +318,9 @@ const Dashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary">React</Badge>
-                    <Badge variant="secondary">TypeScript</Badge>
-                    <Badge variant="secondary">Node.js</Badge>
-                    <Badge variant="secondary">UI/UX Design</Badge>
-                    <Badge variant="secondary">JavaScript</Badge>
+                    {currentUser.skillsTeaching.map(skill => (
+                      <Badge key={skill.name} variant="secondary">{skill.name}</Badge>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
@@ -331,15 +332,15 @@ const Dashboard = () => {
                 <CardContent className="space-y-4">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Total Sessions</span>
-                    <span className="font-semibold">47</span>
+                    <span className="font-semibold">{currentUser.totalSessions}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Average Rating</span>
-                    <span className="font-semibold">4.9/5</span>
+                    <span className="font-semibold">{currentUser.rating}/5</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Credits Earned</span>
-                    <span className="font-semibold">470</span>
+                    <span className="font-semibold">{currentUser.credits}</span>
                   </div>
                 </CardContent>
               </Card>
@@ -354,11 +355,9 @@ const Dashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">Python</Badge>
-                    <Badge variant="outline">Data Science</Badge>
-                    <Badge variant="outline">Machine Learning</Badge>
-                    <Badge variant="outline">Public Speaking</Badge>
-                    <Badge variant="outline">DevOps</Badge>
+                    {currentUser.skillsLearning.map(skill => (
+                      <Badge key={skill.name} variant="outline">{skill.name}</Badge>
+                    ))}
                   </div>
                 </CardContent>
               </Card>

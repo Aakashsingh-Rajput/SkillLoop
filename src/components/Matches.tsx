@@ -7,38 +7,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search, Filter, Star, MessageCircle, Video } from "lucide-react";
-
-const matches = [
-  {
-    id: 1,
-    name: "Sarah Chen",
-    avatar: "SC",
-    teaches: ["React", "TypeScript", "Next.js"],
-    learns: ["Python", "Data Science"],
-    matchScore: 95,
-    bio: "Frontend engineer with 5 years experience. Love teaching React patterns!"
-  },
-  {
-    id: 2,
-    name: "Mike Johnson",
-    avatar: "MJ",
-    teaches: ["Python", "Machine Learning", "Data Analysis"],
-    learns: ["React", "UI Design"],
-    matchScore: 88,
-    bio: "Data scientist passionate about making ML accessible to everyone."
-  },
-  {
-    id: 3,
-    name: "Emma Davis",
-    avatar: "ED",
-    teaches: ["UI/UX Design", "Figma", "Photography"],
-    learns: ["React", "Web Development"],
-    matchScore: 82,
-    bio: "Product designer who loves creating beautiful, user-centered experiences."
-  }
-];
+import { generateMatches, getCurrentUser, skillCategories } from "@/data/mockData";
 
 const Matches = () => {
+  const currentUser = getCurrentUser();
+  const matches = generateMatches(currentUser);
   const [selectedMatch, setSelectedMatch] = useState<typeof matches[0] | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [skillFilter, setSkillFilter] = useState("all");
@@ -47,8 +20,8 @@ const Matches = () => {
     const matchesSearch = match.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          match.bio.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesSkill = !skillFilter || skillFilter === "all" || 
-                        match.teaches.some(skill => skill.toLowerCase().includes(skillFilter.toLowerCase())) ||
-                        match.learns.some(skill => skill.toLowerCase().includes(skillFilter.toLowerCase()));
+                        match.skillsTeaching.some(skill => skill.name.toLowerCase().includes(skillFilter.toLowerCase())) ||
+                        match.skillsLearning.some(skill => skill.name.toLowerCase().includes(skillFilter.toLowerCase()));
     return matchesSearch && matchesSkill;
   });
 
@@ -81,11 +54,12 @@ const Matches = () => {
               <SelectValue placeholder="Filter by skill" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Skills</SelectItem>
-              <SelectItem value="react">React</SelectItem>
-              <SelectItem value="python">Python</SelectItem>
-              <SelectItem value="design">Design</SelectItem>
-              <SelectItem value="javascript">JavaScript</SelectItem>
+              <SelectItem value="all">All Categories</SelectItem>
+              {skillCategories.map(category => (
+                <SelectItem key={category} value={category.toLowerCase()}>
+                  {category}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <Button variant="outline" size="icon">
@@ -101,7 +75,7 @@ const Matches = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 rounded-full bg-indigo text-indigo-foreground flex items-center justify-center font-medium">
-                    {match.avatar}
+                    {match.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
                     <CardTitle className="text-lg">{match.name}</CardTitle>
@@ -116,22 +90,32 @@ const Matches = () => {
               <div>
                 <p className="text-sm font-medium text-muted-foreground mb-2">Teaches</p>
                 <div className="flex flex-wrap gap-1">
-                  {match.teaches.map((skill) => (
-                    <Badge key={skill} variant="secondary" className="text-xs">
-                      {skill}
+                  {match.skillsTeaching.slice(0, 3).map((skill) => (
+                    <Badge key={skill.name} variant="secondary" className="text-xs">
+                      {skill.name}
                     </Badge>
                   ))}
+                  {match.skillsTeaching.length > 3 && (
+                    <Badge variant="secondary" className="text-xs">
+                      +{match.skillsTeaching.length - 3}
+                    </Badge>
+                  )}
                 </div>
               </div>
               
               <div>
                 <p className="text-sm font-medium text-muted-foreground mb-2">Wants to learn</p>
                 <div className="flex flex-wrap gap-1">
-                  {match.learns.map((skill) => (
-                    <Badge key={skill} variant="outline" className="text-xs">
-                      {skill}
+                  {match.skillsLearning.slice(0, 3).map((skill) => (
+                    <Badge key={skill.name} variant="outline" className="text-xs">
+                      {skill.name}
                     </Badge>
                   ))}
+                  {match.skillsLearning.length > 3 && (
+                    <Badge variant="outline" className="text-xs">
+                      +{match.skillsLearning.length - 3}
+                    </Badge>
+                  )}
                 </div>
               </div>
 
@@ -149,7 +133,7 @@ const Matches = () => {
                   </Button>
                   <div className="flex items-center gap-1">
                     <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                    <span className="text-xs text-muted-foreground">4.9</span>
+                    <span className="text-xs text-muted-foreground">{match.rating}</span>
                   </div>
                 </div>
               </div>
