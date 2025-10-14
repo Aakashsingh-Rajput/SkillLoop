@@ -26,8 +26,8 @@ const Landing = () => {
 
       {/* Hero Section */}
       <main className="flex-1">
-        <div className="container max-w-7xl mx-auto px-4 py-10 sm:py-16 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container max-w-7xl mx-auto px-4 pt-2 pb-12 sm:pt-4 sm:pb-16 lg:pt-6 lg:pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">
                 <Badge variant="secondary" className="w-fit text-xs sm:text-sm">
@@ -76,12 +76,18 @@ const Landing = () => {
               </div>
             </div>
             
-            <div className="relative">
-              <img 
-                src={heroImage} 
-                alt="Professionals collaborating and sharing knowledge" 
-                className="rounded-2xl shadow-card w-full"
-              />
+            <div className="relative lg:-ml-8 -mt-4 lg:-mt-8">
+              {/* Decorative elements */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-indigo/10 rounded-full blur-3xl"></div>
+              <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-primary/10 rounded-full blur-3xl"></div>
+              
+              <div className="relative">
+                <img 
+                  src={heroImage} 
+                  alt="Professionals collaborating and sharing knowledge" 
+                  className="rounded-2xl shadow-card w-full transform hover:scale-[1.02] transition-transform duration-300"
+                />
+              </div>
             </div>
           </div>
         </div>
